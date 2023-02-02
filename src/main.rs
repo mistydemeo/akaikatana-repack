@@ -1,7 +1,7 @@
-use std::io::Cursor;
-use std::io::Read;
-use std::io::Error;
 use std::fs::File;
+use std::io::Cursor;
+use std::io::Error;
+use std::io::Read;
 
 use byteorder::{LittleEndian, ReadBytesExt};
 
