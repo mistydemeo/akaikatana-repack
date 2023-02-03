@@ -6,14 +6,10 @@ use std::io::Read;
 
 use byteorder::{LittleEndian, ReadBytesExt};
 
+use akaikatana_repack::song::Song;
+
 pub const TRACK_COUNT: usize = 40;
 pub const TRACK_HEADER_LENGTH: usize = 8;
-
-pub struct Song {
-    pub start: u32,
-    pub index: usize,
-    pub size: usize,
-}
 
 fn main() -> Result<(), Error> {
     let mut file = File::open("Stream.bin")?;
