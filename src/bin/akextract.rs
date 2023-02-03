@@ -38,7 +38,7 @@ fn main() -> Result<(), Error> {
 
         songs.push(Song {
             start,
-            index,
+            index: i,
             size: 0,
         });
     }
