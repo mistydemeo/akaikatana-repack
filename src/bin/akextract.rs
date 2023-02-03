@@ -22,7 +22,7 @@ fn main() -> Result<(), Error> {
 
     let mut songs: Vec<Song> = vec![];
 
-    for i in 1..TRACK_COUNT {
+    for i in 1..=TRACK_COUNT {
         let index = (i - 1) * TRACK_HEADER_LENGTH;
 
         let mut reader = Cursor::new(&buf);
@@ -45,7 +45,7 @@ fn main() -> Result<(), Error> {
 
     // For the last song, use the size of the file as a whole
     let metadata = fs::metadata("Stream.bin")?;
-    songs[TRACK_COUNT - 2].size = metadata.len() as usize - songs[TRACK_COUNT - 2].index;
+    songs[TRACK_COUNT - 1].size = metadata.len() as usize - songs[TRACK_COUNT - 1].index;
 
     for song in songs {
         println!(
