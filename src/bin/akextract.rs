@@ -1,7 +1,7 @@
-use std::io::Error;
-use std::fs::File;
 use std::fs;
+use std::fs::File;
 use std::io::Cursor;
+use std::io::Error;
 use std::io::Read;
 
 use byteorder::{LittleEndian, ReadBytesExt};
@@ -36,7 +36,11 @@ fn main() -> Result<(), Error> {
             songs[i - 2].size = start as usize - songs[i - 2].start as usize;
         }
 
-        songs.push(Song { start, index, size: 0 });
+        songs.push(Song {
+            start,
+            index,
+            size: 0,
+        });
     }
 
     // For the last song, use the size of the file as a whole
@@ -44,7 +48,10 @@ fn main() -> Result<(), Error> {
     songs[TRACK_COUNT - 2].size = metadata.len() as usize - songs[TRACK_COUNT - 2].index;
 
     for song in songs {
-        println!("Song {} starts at {} and is {} bytes", song.index, song.start, song.size);
+        println!(
+            "Song {} starts at {} and is {} bytes",
+            song.index, song.start, song.size
+        );
     }
 
     Ok(())
