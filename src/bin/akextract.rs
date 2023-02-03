@@ -1,4 +1,8 @@
 use std::fs::File;
+use std::io::Read;
+use std::io::Seek;
+use std::io::SeekFrom;
+use std::io::Write;
 
 use std::io::Error;
 
@@ -13,10 +17,15 @@ fn main() -> Result<(), Error> {
     let songs = parser::parse_file(&mut file)?;
 
     for song in songs {
-        println!(
-            "Song {} starts at {} and is {} bytes",
-            song.index, song.start, song.size
-        );
+        let filename = format!("{:0>2}.wav", song.index);
+        let mut buf: Vec<u8> = vec![0; song.size];
+
+        file.seek(SeekFrom::Start(song.start))?;
+        file.read_exact(&mut buf)?;
+
+        println!("Writing song {filename}");
+        let mut out = File::create(filename)?;
+        out.write_all(&buf)?;
     }
 
     Ok(())

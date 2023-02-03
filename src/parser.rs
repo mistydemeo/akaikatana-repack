@@ -20,7 +20,7 @@ pub fn parse_file(file: &mut File) -> Result<Vec<Song>, std::io::Error> {
         let mut reader = Cursor::new(&buf);
         reader.set_position(index as u64);
 
-        let start = reader.read_u32::<LittleEndian>().unwrap();
+        let start = reader.read_u32::<LittleEndian>().unwrap() as u64;
 
         // For every song  other than the last, we can calculate the
         // duration based on the current index and the last song
