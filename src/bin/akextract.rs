@@ -45,7 +45,7 @@ fn main() -> Result<(), Error> {
 
     // For the last song, use the size of the file as a whole
     let metadata = fs::metadata("Stream.bin")?;
-    songs[TRACK_COUNT - 1].size = metadata.len() as usize - songs[TRACK_COUNT - 1].index;
+    songs[TRACK_COUNT - 1].size = metadata.len() as usize - songs[TRACK_COUNT - 1].start as usize;
 
     for song in songs {
         println!(
