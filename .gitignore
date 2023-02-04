@@ -1,5 +1,6 @@
 /target
 /*.bin
+/*.repacked
 /*.wav
 /in/*.wav
 /in/*.bak
