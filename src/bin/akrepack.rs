@@ -27,19 +27,20 @@ fn main() -> Result<(), Error> {
         let filename = format!("{:0>2}.wav", i);
         let path = song_root.join(filename);
         let mut file = File::open(path)?;
-        let size = file.metadata()?.len() as usize;
+        let real_size = file.metadata()?.len() as usize;
+        let size = ((real_size + 15) / 16) * 16;
+        println!("Real size: {}; padded size: {}", real_size, size);
 
         // Read from the source, then write as-is to the target
         let mut buf = vec![0; size];
-        file.read_exact(&mut buf)?;
+        file.read_to_end(&mut buf)?;
         out.write_all(&buf)?;
 
         songs.push(Song {
             index: i,
             size: size,
             start: start as u64,
-            // TODO: implement padding, for now use the unpadded size
-            real_size: size,
+            real_size: real_size,
         });
 
         // Increment for the next song
