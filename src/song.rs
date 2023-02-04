@@ -10,7 +10,7 @@ pub struct Song {
 
 impl Song {
     pub fn as_header(&self) -> Vec<u8> {
-        let mut out = vec![0; 8];
+        let mut out = vec![];
         out.write_u32::<LittleEndian>(self.start as u32).unwrap();
         out.write_u32::<LittleEndian>(self.size as u32).unwrap();
 
