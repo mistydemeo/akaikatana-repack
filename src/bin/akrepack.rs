@@ -38,6 +38,8 @@ fn main() -> Result<(), Error> {
             index: i,
             size: size,
             start: start as u64,
+            // TODO: implement padding, for now use the unpadded size
+            real_size: size,
         });
 
         // Increment for the next song

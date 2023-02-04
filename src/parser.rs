@@ -21,9 +21,12 @@ pub fn parse_file(file: &mut File) -> Result<Vec<Song>, std::io::Error> {
         reader.set_position(index as u64);
 
         let start = reader.read_u32::<LittleEndian>().unwrap() as u64;
+        let real_size = reader.read_u32::<LittleEndian>().unwrap() as u64;
 
         // For every song  other than the last, we can calculate the
         // duration based on the current index and the last song
+        // Note that this is the real, padded size, as opposed to the
+        // internal track data that gives us the unpadded size.
         if i > 1 {
             songs[i - 2].size = start as usize - songs[i - 2].start as usize;
         }
@@ -32,6 +35,7 @@ pub fn parse_file(file: &mut File) -> Result<Vec<Song>, std::io::Error> {
             start,
             index: i,
             size: 0,
+            real_size: real_size as usize,
         });
     }
 
