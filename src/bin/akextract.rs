@@ -8,9 +8,6 @@ use std::io::Error;
 
 use akaikatana_repack::parser;
 
-pub const TRACK_COUNT: usize = 40;
-pub const TRACK_HEADER_LENGTH: usize = 8;
-
 fn main() -> Result<(), Error> {
     let mut file = File::open("Stream.bin")?;
 
