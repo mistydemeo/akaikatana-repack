@@ -15,7 +15,7 @@ fn main() -> Result<(), Error> {
 
     for song in songs {
         let filename = format!("{:0>2}.wav", song.index);
-        let mut buf: Vec<u8> = vec![0; song.size];
+        let mut buf: Vec<u8> = vec![0; song.real_size];
 
         file.seek(SeekFrom::Start(song.start))?;
         file.read_exact(&mut buf)?;
