@@ -32,8 +32,12 @@ fn main() -> Result<(), Error> {
         println!("Real size: {}; padded size: {}", real_size, size);
 
         // Read from the source, then write as-is to the target
-        let mut buf = vec![0; size];
+        let mut buf = vec![];
         file.read_to_end(&mut buf)?;
+
+        // Pad out to a multiple of 16
+        buf.append(&mut vec![0; size - real_size]);
+
         out.write_all(&buf)?;
 
         songs.push(Song {
