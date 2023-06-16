@@ -42,13 +42,13 @@ fn main() -> Result<(), Error> {
 
         songs.push(Song {
             index: i,
-            size: size,
+            size,
             start: start as u64,
-            real_size: real_size,
+            real_size,
         });
 
         // Increment for the next song
-        start = start + size;
+        start += size;
     }
 
     // Rewind to the beginning so we can write the header
