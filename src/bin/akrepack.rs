@@ -7,11 +7,30 @@ use std::path::Path;
 
 use std::io::Error;
 
+use clap::Parser;
+
 use akaikatana_repack::parser;
 use akaikatana_repack::song::Song;
 
+#[derive(Parser, Debug)]
+#[command(
+    author,
+    version,
+    about,
+    long_about = "Rebuilds Stream.bin from WAV files"
+)]
+struct Args {
+    #[arg(short, long, default_value = "Stream.bin.repacked")]
+    output: String,
+
+    #[arg(short, long)]
+    input: String,
+}
+
 fn main() -> Result<(), Error> {
-    let mut out = File::create("Stream.bin.repacked")?;
+    let args = Args::parse();
+
+    let mut out = File::create(args.output)?;
     // 320 bytes for the original file
     let mut start = parser::TRACK_COUNT * parser::TRACK_HEADER_LENGTH;
 
@@ -20,7 +39,7 @@ fn main() -> Result<(), Error> {
     let buf = vec![0; start];
     out.write_all(&buf)?;
 
-    let song_root = Path::new("in");
+    let song_root = Path::new(&args.input);
 
     let mut songs = vec![];
     for i in 1..=parser::TRACK_COUNT {
