@@ -18,6 +18,12 @@ To let the music loop properly, you can use a tool such as [Wavosaur](https://ww
 
 Once you're done preparing your music, place your new ADPCM WAV files in a folder with any of the original music you're keeping. Your new folder should still have 40 WAV files with the same numbered names as the original ones. Once you're ready, you can run the `akrepack` tool to repackage your files into a new `Stream.bin`. For example, if your new soundtrack is in a folder called `in`, you would run `akrepack --input in`. This will produce a new file called `Stream.bin.repacked`. Just replace the file in Akai Katana's game folder with this new file, and you're ready to go.
 
+### Notes
+
+Although my generated files have loop points in place, I've had some trouble getting the game to use them. If anyone figures out what's wrong and could lend a hand, I'd appreciate it!
+
+Shin mode features one extra stage, stage 5, and the music used for that stage is missing in the arcade soundtrack. When you play Shin with the original soundtrack, stage 5 will use the song from the 360 arranged soundtrack.
+
 ### Building from source
 
 These tools are written in Rust, and can be built using standard Rust tools. As long as you have the Rust compiler installed, you just need to run `cargo build`.
