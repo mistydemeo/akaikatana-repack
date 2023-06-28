@@ -9,7 +9,6 @@ license = "GPL-2.0-or-later"
 
 [dependencies]
 clap = { version = "4.3.4", features = ["derive"] }
-byteorder = "1.4.3"
 
 # The profile that 'cargo dist' will build with
 [profile.dist]

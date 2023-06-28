@@ -2,8 +2,6 @@ use std::fs::File;
 use std::io::Cursor;
 use std::io::Read;
 
-use byteorder::{LittleEndian, ReadBytesExt};
-
 use crate::song::Song;
 
 pub const TRACK_COUNT: usize = 40;
@@ -20,8 +18,12 @@ pub fn parse_file(file: &mut File) -> Result<Vec<Song>, std::io::Error> {
         let mut reader = Cursor::new(&buf);
         reader.set_position(index as u64);
 
-        let start = reader.read_u32::<LittleEndian>().unwrap() as u64;
-        let real_size = reader.read_u32::<LittleEndian>().unwrap() as u64;
+        let mut buffer: [u8; 4] = [0; 4];
+        reader.read_exact(&mut buffer)?;
+        let start = u32::from_le_bytes(buffer) as u64;
+
+        reader.read_exact(&mut buffer)?;
+        let real_size = u32::from_le_bytes(buffer) as u64;
 
         // For every song other than the last, we can calculate the
         // duration based on the current index and the last song

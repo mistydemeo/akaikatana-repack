@@ -1,5 +1,3 @@
-use byteorder::{LittleEndian, WriteBytesExt};
-
 pub struct Song {
     pub start: u64,
     pub index: usize,
@@ -11,9 +9,8 @@ pub struct Song {
 impl Song {
     pub fn as_header(&self) -> Vec<u8> {
         let mut out = vec![];
-        out.write_u32::<LittleEndian>(self.start as u32).unwrap();
-        out.write_u32::<LittleEndian>(self.real_size as u32)
-            .unwrap();
+        out.extend((self.start as u32).to_le_bytes());
+        out.extend((self.real_size as u32).to_le_bytes());
 
         out
     }
