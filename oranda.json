@@ -1,0 +1,8 @@
+{
+    "build": {
+        "path_prefix": "akaikatana-repack"
+    },
+    "styles": {
+        "theme": "axolight"
+    }
+}

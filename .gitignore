@@ -5,3 +5,5 @@
 /in/*.wav
 /in/*.bak
 /decoded
+# Oranda
+/public
